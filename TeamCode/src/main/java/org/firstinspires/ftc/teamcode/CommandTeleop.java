@@ -2,15 +2,19 @@ package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.OTOS;
 
 @TeleOp(name="ftclib test")
 public class CommandTeleop extends CommandOpMode {
-    private Motor left, right, back;
+    private MotorEx left, right, back;
+    private OTOS otos;
     private DriveSubsystem driveSubsystem;
     private DriveCommand driveCommand;
 
@@ -18,17 +22,18 @@ public class CommandTeleop extends CommandOpMode {
 
     @Override
     public void initialize() {
-        left = new Motor(hardwareMap, "left");
-        right = new Motor(hardwareMap, "right");
-        back = new Motor(hardwareMap, "back");
+        left = new MotorEx(hardwareMap, "leftMotor");
+        right = new MotorEx(hardwareMap, "rightMotor");
+        back = new MotorEx(hardwareMap, "backMotor");
+        otos = new OTOS(hardwareMap, DistanceUnit.METER, AngleUnit.DEGREES);
 
         driverIO = new GamepadEx(gamepad1);
 
-        driveSubsystem = new DriveSubsystem(left, right, back);
+        driveSubsystem = new DriveSubsystem(left, right, back, otos);
         driveCommand = new DriveCommand(
                 driveSubsystem,
-                driverIO::getLeftX,
                 driverIO::getLeftY,
+                driverIO::getLeftX,
                 driverIO::getRightX
                 );
 
