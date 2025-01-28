@@ -13,9 +13,10 @@ import org.firstinspires.ftc.teamcode.util.Vector;
 public class OTOS extends GyroEx {
     private SparkFunOTOS otos;
     private SparkFunOTOS.Pose2D pose = new SparkFunOTOS.Pose2D();
+    private Vector lastPose;
 
-    public OTOS(HardwareMap hwMap, DistanceUnit linearUnit, AngleUnit angularUnit) {
-        otos = hwMap.get(SparkFunOTOS.class, "otos");
+    public OTOS(String deviceName, HardwareMap hwMap, DistanceUnit linearUnit, AngleUnit angularUnit) {
+        otos = hwMap.get(SparkFunOTOS.class, deviceName);
         otos.setLinearUnit(linearUnit);
         otos.setAngularUnit(angularUnit);
     }
@@ -64,5 +65,14 @@ public class OTOS extends GyroEx {
 
     public Vector getPose() {
         return new Vector(pose.x, pose.y);
+    }
+
+    public void update() {
+        lastPose = new Vector(pose.x, pose.y);
+        pose = otos.getPosition();
+    }
+
+    public Vector getPosDeltas() {
+        return new Vector(pose.x - lastPose.x, pose.y - lastPose.y);
     }
 }
