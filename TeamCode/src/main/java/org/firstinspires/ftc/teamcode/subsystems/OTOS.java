@@ -30,12 +30,12 @@ public class OTOS extends GyroEx {
 
     @Override
     public double getHeading() {
-        return pose.h;
+        return 0.0;
     }
 
     @Override
     public double getAbsoluteHeading() {
-        return 0.0;
+        return pose.h;
     }
 
     @Override

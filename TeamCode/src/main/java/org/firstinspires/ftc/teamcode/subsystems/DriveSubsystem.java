@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
+import org.firstinspires.ftc.teamcode.util.Vector;
 
 public class DriveSubsystem extends SubsystemBase {
     private HDrive kiwi;
@@ -21,7 +22,7 @@ public class DriveSubsystem extends SubsystemBase {
         this.back = back;
         this.otos = otos;
 
-        this.targetHeading = initialPose.getHeading(AngleUnit.RADIANS);
+        this.targetHeading = initialPose.getHeading(AngleUnit.DEGREES);
 
         this.telemetry = telemetry;
 
@@ -36,14 +37,22 @@ public class DriveSubsystem extends SubsystemBase {
         kiwi = new HDrive(left, right, back);
     }
 
-    public void drive(double strafe, double forward, double turn) {
+    public double getHeading() {
+        return otos.getAbsoluteHeading();
+    }
+
+    public void drive(double strafe, double forward, double turn, double heading) {
         kiwi.driveFieldCentric(
                 strafe,
                 forward,
                 turn,
-                targetHeading
+                heading
         );
 
-        telemetry.addData("targetHeading", targetHeading);
+        telemetry.addData("strafe", strafe);
+        telemetry.addData("forward", forward);
+        telemetry.addData("turn", turn);
+        telemetry.addData("heading", heading);
+        telemetry.update();
     }
 }

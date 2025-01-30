@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.OTOS;
+import org.firstinspires.ftc.teamcode.util.Vector;
 
 @TeleOp(name="ftclib test")
 public class CommandTeleop extends CommandOpMode {
@@ -33,10 +34,10 @@ public class CommandTeleop extends CommandOpMode {
                                 new Pose2D(DistanceUnit.METER, 0, 0, AngleUnit.DEGREES, 0),
                                 telemetry);
         driveCommand = new DriveCommand(
-                driveSubsystem,
-                driverIO::getLeftY,
-                driverIO::getLeftX,
-                driverIO::getRightX
+                    driveSubsystem,
+                    driverIO::getLeftY,
+                    driverIO::getLeftX,
+                    driverIO::getRightX
                 );
 
         register(driveSubsystem);
