@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.commands;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.OTOS;
 import org.firstinspires.ftc.teamcode.util.Vector;
 
 import java.util.function.DoubleSupplier;
@@ -10,8 +11,10 @@ import java.util.function.DoubleSupplier;
 public class DriveCommand extends CommandBase {
     private DriveSubsystem driveSubsystem;
     private DoubleSupplier strafe, forward, turn;
+    private OTOS otos;
 
     public DriveCommand(DriveSubsystem driveSubsystem,
+                        OTOS otos,
                         DoubleSupplier strafe,
                         DoubleSupplier forward,
                         DoubleSupplier turn
@@ -20,6 +23,10 @@ public class DriveCommand extends CommandBase {
         this.strafe = strafe;
         this.forward = forward;
         this.turn = turn;
+
+        this.otos = otos;
+
+        otos.init();
 
         addRequirements(driveSubsystem);
     }
@@ -30,7 +37,7 @@ public class DriveCommand extends CommandBase {
                 strafe.getAsDouble(),
                 forward.getAsDouble(),
                 turn.getAsDouble(),
-                driveSubsystem.getHeading()
+                otos.getHeading()
         );
     }
 }

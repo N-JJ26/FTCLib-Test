@@ -13,16 +13,13 @@ public class DriveSubsystem extends SubsystemBase {
     private HDrive kiwi;
     private MotorEx left, right, back;
     private OTOS otos;
-    private double targetHeading;
     private Telemetry telemetry;
 
-    public DriveSubsystem(MotorEx left, MotorEx right, MotorEx back, OTOS otos, Pose2D initialPose, Telemetry telemetry) {
+    public DriveSubsystem(MotorEx left, MotorEx right, MotorEx back, OTOS otos, Telemetry telemetry) {
         this.left = left;
         this.right = right;
         this.back = back;
         this.otos = otos;
-
-        this.targetHeading = initialPose.getHeading(AngleUnit.DEGREES);
 
         this.telemetry = telemetry;
 
@@ -37,10 +34,6 @@ public class DriveSubsystem extends SubsystemBase {
         kiwi = new HDrive(left, right, back);
     }
 
-    public double getHeading() {
-        return otos.getAbsoluteHeading();
-    }
-
     public void drive(double strafe, double forward, double turn, double heading) {
         kiwi.driveFieldCentric(
                 strafe,
@@ -53,6 +46,13 @@ public class DriveSubsystem extends SubsystemBase {
         telemetry.addData("forward", forward);
         telemetry.addData("turn", turn);
         telemetry.addData("heading", heading);
+        telemetry.update();
+    }
+
+    @Override
+    public void periodic() {
+        otos.update();
+        telemetry.addData("pose", otos.getPose());
         telemetry.update();
     }
 }

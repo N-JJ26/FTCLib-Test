@@ -15,10 +15,8 @@ public class OTOS extends GyroEx {
     private SparkFunOTOS.Pose2D pose = new SparkFunOTOS.Pose2D();
     private Vector lastPose;
 
-    public OTOS(String deviceName, HardwareMap hwMap, DistanceUnit linearUnit, AngleUnit angularUnit) {
+    public OTOS(String deviceName, HardwareMap hwMap) {
         otos = hwMap.get(SparkFunOTOS.class, deviceName);
-        otos.setLinearUnit(linearUnit);
-        otos.setAngularUnit(angularUnit);
     }
 
     @Override
@@ -26,16 +24,18 @@ public class OTOS extends GyroEx {
         otos.begin();
         otos.resetTracking();
         otos.calibrateImu();
+        otos.setLinearUnit(DistanceUnit.METER);
+        otos.setAngularUnit(AngleUnit.DEGREES);
     }
 
     @Override
     public double getHeading() {
-        return 0.0;
+        return pose.h;
     }
 
     @Override
     public double getAbsoluteHeading() {
-        return pose.h;
+        return 0.0;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class OTOS extends GyroEx {
 
     @Override
     public void reset() {
-        otos.setPosition(new SparkFunOTOS.Pose2D(pose.x, pose.y, 0));
+        otos.setPosition(new SparkFunOTOS.Pose2D(pose.x, pose.y, 0.0));
     }
 
     @Override
