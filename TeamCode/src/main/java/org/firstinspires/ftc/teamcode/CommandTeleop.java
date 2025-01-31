@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
@@ -23,6 +25,7 @@ public class CommandTeleop extends CommandOpMode {
     private Eyes eyes;
     private EyeCommands eyeCommands;
     private GamepadEx driverIO, operatiorIO;
+    private GamepadButton options, rightBumper, leftBumper;
 
     @Override
     public void initialize() {
@@ -41,6 +44,10 @@ public class CommandTeleop extends CommandOpMode {
 
         driverIO = new GamepadEx(gamepad1);
         operatiorIO = new GamepadEx(gamepad2);
+
+        options = new GamepadButton(driverIO, GamepadKeys.Button.START);
+        rightBumper = new GamepadButton(operatiorIO, GamepadKeys.Button.RIGHT_BUMPER);
+        leftBumper = new GamepadButton(operatiorIO, GamepadKeys.Button.LEFT_BUMPER);
 
         driveSubsystem = new DriveSubsystem(left, right, back, otos, telemetry);
         driveCommand = new DriveCommand(
@@ -73,5 +80,26 @@ public class CommandTeleop extends CommandOpMode {
 
         driveSubsystem.setDefaultCommand(driveCommand);
         eyes.setDefaultCommand(eyeCommands);
+    }
+
+    @Override
+    public void run() {
+        rightBumper.whenHeld(new InstantCommand(
+                () -> eyes.setEyeLidState(Eyes.Eye.RIGHT, true)
+        ));
+        rightBumper.whenReleased(new InstantCommand(
+                () -> eyes.setEyeLidState(Eyes.Eye.RIGHT, false)
+        ));
+
+        leftBumper.whenHeld(new InstantCommand(
+                () -> eyes.setEyeLidState(Eyes.Eye.LEFT, true)
+        ));
+        leftBumper.whenReleased(new InstantCommand(
+                () -> eyes.setEyeLidState(Eyes.Eye.LEFT, false)
+        ));
+
+        options.whileHeld(new InstantCommand(
+                () -> otos.reset()
+        ));
     }
 }

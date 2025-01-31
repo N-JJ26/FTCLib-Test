@@ -26,8 +26,5 @@ public class EyeCommands extends CommandBase {
     public void execute() {
         eyes.setEyeBallX(positionX);
         eyes.setEyeBallY(positionY);
-
-        eyes.setEyeLidState(Eyes.Eye.RIGHT, !right);
-        eyes.setEyeLidState(Eyes.Eye.LEFT, !left);
     }
 }
