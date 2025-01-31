@@ -44,12 +44,12 @@ public class CommandTeleop extends CommandOpMode {
 
         driveSubsystem = new DriveSubsystem(left, right, back, otos, telemetry);
         driveCommand = new DriveCommand(
-                    driveSubsystem,
-                    otos,
-                    driverIO::getLeftY,
-                    driverIO::getLeftX,
-                    driverIO::getRightX
-                );
+                driveSubsystem,
+                otos,
+                driverIO::getLeftY,
+                driverIO::getLeftX,
+                driverIO::getRightX
+        );
 
         eyes = new Eyes(
                 eyeBallX,
