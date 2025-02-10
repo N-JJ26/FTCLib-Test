@@ -15,6 +15,8 @@ public class DriveSubsystem extends SubsystemBase {
     private OTOS otos;
     private Telemetry telemetry;
 
+    private final double RIGHT = Math.PI / 6, LEFT = 5 * Math.PI / 6, BACK = 3 * Math.PI / 2;
+
     public DriveSubsystem(MotorEx left, MotorEx right, MotorEx back, OTOS otos, Telemetry telemetry) {
         this.left = left;
         this.right = right;
@@ -31,7 +33,7 @@ public class DriveSubsystem extends SubsystemBase {
         right.setInverted(true);
         back.setInverted(true);
 
-        kiwi = new HDrive(right, left, back);
+        kiwi = new HDrive(left, right, back, RIGHT, LEFT, BACK);
     }
 
     public void drive(double strafe, double forward, double turn, double heading) {
@@ -45,7 +47,5 @@ public class DriveSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         otos.update();
-        telemetry.addData("pose", otos.getPose());
-        telemetry.update();
     }
 }
