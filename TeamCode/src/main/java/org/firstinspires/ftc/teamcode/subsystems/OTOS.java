@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.geometry.Rotation2d;
+import com.arcrobotics.ftclib.geometry.Vector2d;
 import com.arcrobotics.ftclib.hardware.GyroEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -8,12 +9,11 @@ import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.util.Vector;
 
 public class OTOS extends GyroEx {
     private SparkFunOTOS otos;
     private SparkFunOTOS.Pose2D pose = new SparkFunOTOS.Pose2D();
-    private Vector lastPose;
+    private Vector2d lastPose;
 
     public OTOS(String deviceName, HardwareMap hwMap) {
         otos = hwMap.get(SparkFunOTOS.class, deviceName);
@@ -63,16 +63,16 @@ public class OTOS extends GyroEx {
         return null;
     }
 
-    public Vector getPose() {
-        return new Vector(pose.x, pose.y);
+    public Vector2d getPose() {
+        return new Vector2d(pose.x, pose.y);
     }
 
     public void update() {
-        lastPose = new Vector(pose.x, pose.y);
+        lastPose = new Vector2d(pose.x, pose.y);
         pose = otos.getPosition();
     }
 
-    public Vector getPosDeltas() {
-        return new Vector(pose.x - lastPose.x, pose.y - lastPose.y);
+    public Vector2d getPosDeltas() {
+        return new Vector2d(pose.x - lastPose.getX(), pose.y - lastPose.getY());
     }
 }

@@ -7,7 +7,6 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.teamcode.util.Vector;
 
 public class DriveSubsystem extends SubsystemBase {
     private HDrive kiwi;
