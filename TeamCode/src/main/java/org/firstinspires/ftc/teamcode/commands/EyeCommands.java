@@ -12,11 +12,14 @@ public class EyeCommands extends CommandBase {
     private boolean right, left;
     private double positionX, positionY;
 
-    public EyeCommands(Eyes eyes, double positionX, double positionY) {
+    public EyeCommands(Eyes eyes, double positionX, double positionY, boolean right, boolean left) {
         this.eyes = eyes;
 
         this.positionX = positionX;
         this.positionY = positionY;
+
+        this.right = right;
+        this.left = left;
 
         addRequirements(eyes);
     }
@@ -25,5 +28,8 @@ public class EyeCommands extends CommandBase {
     public void execute() {
         eyes.setEyeBallX(positionX);
         eyes.setEyeBallY(positionY);
+
+        eyes.setEyeLidState(Eyes.Eye.LEFT, left);
+        eyes.setEyeLidState(Eyes.Eye.RIGHT, right);
     }
 }

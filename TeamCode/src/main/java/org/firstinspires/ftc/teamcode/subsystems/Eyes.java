@@ -10,23 +10,19 @@ import java.util.Locale;
 
 public class Eyes extends SubsystemBase {
     private Servo eyeBallX, eyeBallY, eyeLeftUpperLid, eyeLeftLowerLid, eyeRightUpperLid, eyeRightLowerLid;
-    private Telemetry telemetry;
 
     public Eyes(Servo eyeBallX,
                 Servo eyeBallY,
                 Servo eyeLeftUpperLid,
                 Servo eyeLeftLowerLid,
                 Servo eyeRightUpperLid,
-                Servo eyeRightLowerLid,
-                Telemetry telemetry) {
+                Servo eyeRightLowerLid) {
         this.eyeBallX = eyeBallX;
         this.eyeBallY = eyeBallY;
         this.eyeLeftUpperLid = eyeLeftUpperLid;
         this.eyeLeftLowerLid = eyeLeftLowerLid;
         this.eyeRightUpperLid = eyeRightUpperLid;
         this.eyeRightLowerLid = eyeRightLowerLid;
-
-        this.telemetry = telemetry;
     }
 
     public enum Eye {
@@ -70,7 +66,6 @@ public class Eyes extends SubsystemBase {
 
     @Override
     public void periodic() {
-        telemetry.addData("eyes", getServoPositions());
-        telemetry.update();
+
     }
 }

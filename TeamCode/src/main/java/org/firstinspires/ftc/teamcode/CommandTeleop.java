@@ -47,7 +47,7 @@ public class CommandTeleop extends CommandOpMode {
 
         options = new GamepadButton(driverIO, GamepadKeys.Button.START);
 
-        driveSubsystem = new DriveSubsystem(left, right, back, otos, telemetry);
+        driveSubsystem = new DriveSubsystem(left, right, back, otos);
         driveCommand = new DriveCommand(
                 driveSubsystem,
                 otos,
@@ -62,8 +62,7 @@ public class CommandTeleop extends CommandOpMode {
                 eyeLeftUpperLid,
                 eyeLeftLowerLid,
                 eyeRightUpperLid,
-                eyeRightLowerLid,
-                telemetry
+                eyeRightLowerLid
         );
         eyeCommands = new EyeCommands(
                 eyes,

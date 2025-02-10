@@ -17,4 +17,10 @@ public final class Constants {
         public static final double RIGHT_LOWER_OPEN = 0.5;
         public static final double RIGHT_LOWER_CLOSED = 0.8;
     }
+
+    public static class DriveTrainConstants {
+        public static final double RIGHT_OFFSET = Math.PI / 6;
+        public static final double LEFT_OFFSET = 5 * Math.PI / 6;
+        public static final double BACK_OFFSET = 3 * Math.PI / 2;
+    }
 }
