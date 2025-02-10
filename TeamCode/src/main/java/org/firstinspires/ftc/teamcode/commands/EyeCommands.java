@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.commands;
 
-import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.arcrobotics.ftclib.command.InstantCommand;
 
 import org.firstinspires.ftc.teamcode.subsystems.Eyes;
 
@@ -31,5 +29,10 @@ public class EyeCommands extends CommandBase {
 
         eyes.setEyeLidState(Eyes.Eye.LEFT, left);
         eyes.setEyeLidState(Eyes.Eye.RIGHT, right);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 }

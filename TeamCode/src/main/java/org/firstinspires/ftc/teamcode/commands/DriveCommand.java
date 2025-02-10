@@ -4,7 +4,6 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.OTOS;
-import org.firstinspires.ftc.teamcode.util.Vector;
 
 import java.util.function.DoubleSupplier;
 

@@ -18,14 +18,14 @@ import org.firstinspires.ftc.teamcode.subsystems.OTOS;
 @TeleOp(name="ftclib test")
 public class CommandTeleop extends CommandOpMode {
     private MotorEx left, right, back;
-    private Servo eyeBallX, eyeBallY, eyeLeftUpperLid, eyeLeftLowerLid, eyeRightUpperLid, eyeRightLowerLid;
+//    private Servo eyeBallX, eyeBallY, eyeLeftUpperLid, eyeLeftLowerLid, eyeRightUpperLid, eyeRightLowerLid;
     private OTOS otos;
     private DriveSubsystem driveSubsystem;
     private DriveCommand driveCommand;
-    private Eyes eyes;
-    private EyeCommands eyeCommands;
-    private GamepadEx driverIO, operatiorIO;
-    private GamepadButton options;
+//    private Eyes eyes;
+//    private EyeCommands eyeCommands;
+    private GamepadEx driverIO; //, operatiorIO;
+//    private GamepadButton options;
 
     @Override
     public void initialize() {
@@ -33,19 +33,19 @@ public class CommandTeleop extends CommandOpMode {
         right = new MotorEx(hardwareMap, "rightMotor");
         back = new MotorEx(hardwareMap, "backMotor");
 
-        eyeBallX = hardwareMap.get(Servo.class, "eyeBallX");
-        eyeBallY = hardwareMap.get(Servo.class, "eyeBallY");
-        eyeLeftUpperLid = hardwareMap.get(Servo.class, "eyeLeftUpperLid");
-        eyeLeftLowerLid = hardwareMap.get(Servo.class, "eyeLeftLowerLid");
-        eyeRightUpperLid = hardwareMap.get(Servo.class, "eyeRightUpperLid");
-        eyeRightLowerLid = hardwareMap.get(Servo.class, "eyeRightLowerLid");
+//        eyeBallX = hardwareMap.get(Servo.class, "eyeBallX");
+//        eyeBallY = hardwareMap.get(Servo.class, "eyeBallY");
+//        eyeLeftUpperLid = hardwareMap.get(Servo.class, "eyeLeftUpperLid");
+//        eyeLeftLowerLid = hardwareMap.get(Servo.class, "eyeLeftLowerLid");
+//        eyeRightUpperLid = hardwareMap.get(Servo.class, "eyeRightUpperLid");
+//        eyeRightLowerLid = hardwareMap.get(Servo.class, "eyeRightLowerLid");
 
         otos = new OTOS("laser", hardwareMap);
 
         driverIO = new GamepadEx(gamepad1);
-        operatiorIO = new GamepadEx(gamepad2);
+        //operatiorIO = new GamepadEx(gamepad2);
 
-        options = new GamepadButton(driverIO, GamepadKeys.Button.START);
+        //options = new GamepadButton(driverIO, GamepadKeys.Button.START);
 
         driveSubsystem = new DriveSubsystem(left, right, back, otos);
         driveCommand = new DriveCommand(
@@ -56,38 +56,36 @@ public class CommandTeleop extends CommandOpMode {
                 driverIO::getRightX
         );
 
-        eyes = new Eyes(
-                eyeBallX,
-                eyeBallY,
-                eyeLeftUpperLid,
-                eyeLeftLowerLid,
-                eyeRightUpperLid,
-                eyeRightLowerLid
-        );
-        eyeCommands = new EyeCommands(
-                eyes,
-                Constants.EyeConstants.OFFSET
-                            + (Constants.EyeConstants.MULTIPLIER * operatiorIO.getRightX()),
-                Constants.EyeConstants.OFFSET
-                            + (Constants.EyeConstants.MULTIPLIER * operatiorIO.getRightY())
-        );
+//        eyes = new Eyes(
+//                eyeBallX,
+//                eyeBallY,
+//                eyeLeftUpperLid,
+//                eyeLeftLowerLid,
+//                eyeRightUpperLid,
+//                eyeRightLowerLid
+//        );
+//        eyeCommands = new EyeCommands(
+//                eyes,
+//                Constants.EyeConstants.OFFSET
+//                            + (Constants.EyeConstants.MULTIPLIER * operatiorIO.getRightX()),
+//                Constants.EyeConstants.OFFSET
+//                            + (Constants.EyeConstants.MULTIPLIER * operatiorIO.getRightY()),
+//                true,
+//                true
+//        );
 
         driveSubsystem.setDefaultCommand(driveCommand);
-        eyes.setDefaultCommand(eyeCommands);
+//        eyes.setDefaultCommand(eyeCommands);
 
-        schedule(new InstantCommand(
-                () -> eyes.setEyeLidState(Eyes.Eye.LEFT, operatiorIO.isDown(GamepadKeys.Button.RIGHT_BUMPER))
-        ));
-
-        schedule(new InstantCommand(
-                () -> eyes.setEyeLidState(Eyes.Eye.LEFT, operatiorIO.isDown(GamepadKeys.Button.LEFT_BUMPER))
-        ));
-
-        options.whenReleased(new InstantCommand(
-                () -> otos.reset()
-        ));
+//        schedule(new InstantCommand(
+//                () -> eyes.setEyeLidState(Eyes.Eye.LEFT, operatiorIO.isDown(GamepadKeys.Button.RIGHT_BUMPER))
+//        ));
+//
+//        schedule(new InstantCommand(
+//                () -> eyes.setEyeLidState(Eyes.Eye.LEFT, operatiorIO.isDown(GamepadKeys.Button.LEFT_BUMPER))
+//        ));
 
         register(driveSubsystem);
-        register(eyes);
+//        register(eyes);
     }
 }
