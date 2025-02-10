@@ -25,7 +25,7 @@ public class CommandTeleop extends CommandOpMode {
     private Eyes eyes;
     private EyeCommands eyeCommands;
     private GamepadEx driverIO, operatiorIO;
-    private GamepadButton options, rightBumper, leftBumper;
+    private GamepadButton options;
 
     @Override
     public void initialize() {
@@ -46,8 +46,6 @@ public class CommandTeleop extends CommandOpMode {
         operatiorIO = new GamepadEx(gamepad2);
 
         options = new GamepadButton(driverIO, GamepadKeys.Button.START);
-        rightBumper = new GamepadButton(operatiorIO, GamepadKeys.Button.RIGHT_BUMPER);
-        leftBumper = new GamepadButton(operatiorIO, GamepadKeys.Button.LEFT_BUMPER);
 
         driveSubsystem = new DriveSubsystem(left, right, back, otos, telemetry);
         driveCommand = new DriveCommand(
@@ -69,37 +67,28 @@ public class CommandTeleop extends CommandOpMode {
         );
         eyeCommands = new EyeCommands(
                 eyes,
-                operatiorIO.getButton(GamepadKeys.Button.RIGHT_BUMPER),
-                operatiorIO.getButton(GamepadKeys.Button.LEFT_BUMPER),
-                operatiorIO.getRightX(),
-                operatiorIO.getRightY()
+                Constants.EyeConstants.OFFSET
+                            + (Constants.EyeConstants.MULTIPLIER * operatiorIO.getRightX()),
+                Constants.EyeConstants.OFFSET
+                            + (Constants.EyeConstants.MULTIPLIER * operatiorIO.getRightY())
         );
-
-        register(driveSubsystem);
-        register(eyes);
 
         driveSubsystem.setDefaultCommand(driveCommand);
         eyes.setDefaultCommand(eyeCommands);
-    }
 
-    @Override
-    public void run() {
-        rightBumper.whenHeld(new InstantCommand(
-                () -> eyes.setEyeLidState(Eyes.Eye.RIGHT, true)
-        ));
-        rightBumper.whenReleased(new InstantCommand(
-                () -> eyes.setEyeLidState(Eyes.Eye.RIGHT, false)
+        schedule(new InstantCommand(
+                () -> eyes.setEyeLidState(Eyes.Eye.LEFT, operatiorIO.isDown(GamepadKeys.Button.RIGHT_BUMPER))
         ));
 
-        leftBumper.whenHeld(new InstantCommand(
-                () -> eyes.setEyeLidState(Eyes.Eye.LEFT, true)
-        ));
-        leftBumper.whenReleased(new InstantCommand(
-                () -> eyes.setEyeLidState(Eyes.Eye.LEFT, false)
+        schedule(new InstantCommand(
+                () -> eyes.setEyeLidState(Eyes.Eye.LEFT, operatiorIO.isDown(GamepadKeys.Button.LEFT_BUMPER))
         ));
 
-        options.whileHeld(new InstantCommand(
+        options.whenReleased(new InstantCommand(
                 () -> otos.reset()
         ));
+
+        register(driveSubsystem);
+        register(eyes);
     }
 }

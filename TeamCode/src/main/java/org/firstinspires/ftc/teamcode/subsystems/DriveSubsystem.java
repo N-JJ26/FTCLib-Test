@@ -31,22 +31,15 @@ public class DriveSubsystem extends SubsystemBase {
         right.setInverted(true);
         back.setInverted(true);
 
-        kiwi = new HDrive(left, right, back);
+        kiwi = new HDrive(right, left, back);
     }
 
     public void drive(double strafe, double forward, double turn, double heading) {
-        kiwi.driveFieldCentric(
+        kiwi.driveRobotCentric(
                 strafe,
                 forward,
-                turn,
-                heading
+                turn
         );
-
-        telemetry.addData("strafe", strafe);
-        telemetry.addData("forward", forward);
-        telemetry.addData("turn", turn);
-        telemetry.addData("heading", heading);
-        telemetry.update();
     }
 
     @Override

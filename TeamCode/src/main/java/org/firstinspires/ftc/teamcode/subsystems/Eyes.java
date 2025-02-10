@@ -4,11 +4,11 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.constants.EyeConstants;
+import org.firstinspires.ftc.teamcode.Constants;
 
 import java.util.Locale;
 
-public class Eyes extends SubsystemBase implements EyeConstants {
+public class Eyes extends SubsystemBase {
     private Servo eyeBallX, eyeBallY, eyeLeftUpperLid, eyeLeftLowerLid, eyeRightUpperLid, eyeRightLowerLid;
     private Telemetry telemetry;
 
@@ -44,12 +44,16 @@ public class Eyes extends SubsystemBase implements EyeConstants {
     public void setEyeLidState(Eye eye, boolean open) {
         switch (eye) {
             case LEFT:
-                eyeLeftUpperLid.setPosition(open ? LEFT_UPPER_OPEN : LEFT_UPPER_CLOSED);
-                eyeLeftLowerLid.setPosition(open ? LEFT_LOWER_OPEN : LEFT_LOWER_CLOSED);
+                eyeLeftUpperLid.setPosition(open ?
+                        Constants.EyeConstants.LEFT_UPPER_OPEN : Constants.EyeConstants.LEFT_UPPER_CLOSED);
+                eyeLeftLowerLid.setPosition(open ?
+                        Constants.EyeConstants.LEFT_LOWER_OPEN : Constants.EyeConstants.LEFT_LOWER_CLOSED);
                 break;
             case RIGHT:
-                eyeRightUpperLid.setPosition(open ? RIGHT_UPPER_OPEN : RIGHT_UPPER_CLOSED);
-                eyeRightLowerLid.setPosition(open ? RIGHT_LOWER_OPEN : RIGHT_LOWER_CLOSED);
+                eyeRightUpperLid.setPosition(open ?
+                        Constants.EyeConstants.RIGHT_UPPER_OPEN : Constants.EyeConstants.RIGHT_UPPER_CLOSED);
+                eyeRightLowerLid.setPosition(open ?
+                        Constants.EyeConstants.RIGHT_LOWER_OPEN : Constants.EyeConstants.RIGHT_LOWER_CLOSED);
         }
     }
 
