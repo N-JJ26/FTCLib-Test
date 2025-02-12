@@ -4,7 +4,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.drivebase.HDrive;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 
-import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.Constants.DriveTrainConstants;
 
 public class DriveSubsystem extends SubsystemBase {
     private HDrive kiwi;
@@ -26,9 +26,9 @@ public class DriveSubsystem extends SubsystemBase {
         back.setInverted(true);
 
         kiwi = new HDrive(left, right, back,
-                Constants.DriveTrainConstants.RIGHT_OFFSET,
-                Constants.DriveTrainConstants.LEFT_OFFSET,
-                Constants.DriveTrainConstants.BACK_OFFSET
+                DriveTrainConstants.RIGHT_OFFSET,
+                DriveTrainConstants.LEFT_OFFSET,
+                DriveTrainConstants.BACK_OFFSET
         );
     }
 

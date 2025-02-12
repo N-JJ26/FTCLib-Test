@@ -30,9 +30,4 @@ public class EyeCommands extends CommandBase {
         eyes.setEyeLidState(Eyes.Eye.LEFT, left);
         eyes.setEyeLidState(Eyes.Eye.RIGHT, right);
     }
-
-    @Override
-    public boolean isFinished() {
-        return true;
-    }
 }

@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.commands.EyeCommands;
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.Eyes;
 import org.firstinspires.ftc.teamcode.subsystems.OTOS;
+import org.firstinspires.ftc.teamcode.subsystems.TelemetrySubsystems;
 
 @TeleOp(name="ftclib test")
 public class CommandTeleop extends CommandOpMode {
@@ -24,6 +25,8 @@ public class CommandTeleop extends CommandOpMode {
     private DriveCommand driveCommand;
 //    private Eyes eyes;
 //    private EyeCommands eyeCommands;
+
+    private TelemetrySubsystems telemetrySubsystems;
     private GamepadEx driverIO; //, operatiorIO;
 //    private GamepadButton options;
 
@@ -45,7 +48,7 @@ public class CommandTeleop extends CommandOpMode {
         driverIO = new GamepadEx(gamepad1);
         //operatiorIO = new GamepadEx(gamepad2);
 
-        //options = new GamepadButton(driverIO, GamepadKeys.Button.START);
+        //options = new GamepadButton(driverIO, GamepadKeys.Button.START;
 
         driveSubsystem = new DriveSubsystem(left, right, back, otos);
         driveCommand = new DriveCommand(
@@ -74,6 +77,11 @@ public class CommandTeleop extends CommandOpMode {
 //                true
 //        );
 
+        telemetrySubsystems = new TelemetrySubsystems(
+                driveSubsystem,
+                telemetry
+        );
+
         driveSubsystem.setDefaultCommand(driveCommand);
 //        eyes.setDefaultCommand(eyeCommands);
 
@@ -86,6 +94,7 @@ public class CommandTeleop extends CommandOpMode {
 //        ));
 
         register(driveSubsystem);
+        register(telemetrySubsystems);
 //        register(eyes);
     }
 }

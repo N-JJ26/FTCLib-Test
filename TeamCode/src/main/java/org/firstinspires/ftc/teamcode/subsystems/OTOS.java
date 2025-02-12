@@ -67,12 +67,12 @@ public class OTOS extends GyroEx {
         return new Vector2d(pose.x, pose.y);
     }
 
+    public Vector2d getPosDeltas() {
+        return new Vector2d(pose.x - lastPose.getX(), pose.y - lastPose.getY());
+    }
+
     public void update() {
         lastPose = new Vector2d(pose.x, pose.y);
         pose = otos.getPosition();
-    }
-
-    public Vector2d getPosDeltas() {
-        return new Vector2d(pose.x - lastPose.getX(), pose.y - lastPose.getY());
     }
 }

@@ -62,9 +62,4 @@ public class Eyes extends SubsystemBase {
                 eyeRightLowerLid.getPosition()
         );
     }
-
-    @Override
-    public void periodic() {
-
-    }
 }
